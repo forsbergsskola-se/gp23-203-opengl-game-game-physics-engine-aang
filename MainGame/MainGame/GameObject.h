@@ -10,9 +10,22 @@ struct GameObject
 	//Circles
 	Vector3 position;
 	Vector3 velocity;
-	Vector3 force;
+	Vector3 acceleration;
 	int mass;
 	float radius;
+
+	//Construct
+	GameObject(Vector3 pos, Vector3 vel, Vector3 acc, float m) :
+		position(pos), velocity(vel), acceleration(acc), mass(m) {}
+
+	// Apply force to the Rigidbody(Gameobejct)
+	void applyForce(Vector3 force) {
+		// F = ma, so a = F / m
+		acceleration.x += force.x / mass;
+		acceleration.y += force.y / mass;
+		acceleration.z += force.z / mass;
+	}
+
 
 	void renderThisObject() {
 		glBegin(GL_TRIANGLE_FAN);
