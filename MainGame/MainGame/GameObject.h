@@ -11,9 +11,10 @@ struct GameObject
 	Vector3 position;
 	Vector3 velocity;
 	Vector3 acceleration;
-	int mass;
+	//int mass;
 	float radius;
 
+	/*
 	//Construct
 	GameObject(Vector3 pos, Vector3 vel, Vector3 acc, float m) :
 		position(pos), velocity(vel), acceleration(acc), mass(m) {}
@@ -51,5 +52,5 @@ struct GameObject
 	{
 		//Insert remove object function
 		//Design Pattern: object pooling?
-	}
+	}*/
 };

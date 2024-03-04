@@ -11,7 +11,7 @@ int main()
 {
 	//Setup Game Object (Player Circle)
 	GameObject Player{ Vector3{0,0,0}, Vector3{0,0,0}, Vector3{0,0,0}, 50};
-
+	GameObject Enemy{ Vector3{0.5,0.5,0.5}, Vector3{0.5,0.5,0.5}, Vector3{0.5,0.5,0.5}, 50};
 
 	//Setting up physics
 	//Gravitational force
