@@ -1,4 +1,5 @@
 #pragma once
+#include <cmath>
 class Vector3
 {
 public:
@@ -12,6 +13,14 @@ public:
 		x *= other.x;
 		y *= other.y;
 		z *= other.z;
+		return Vector3(x, y, z);
+	}
+	//Addition
+	Vector3 operator+(Vector3& const other)
+	{
+		x += other.x;
+		y += other.y;
+		z += other.z;
 		return Vector3(x, y, z);
 	}
 	// Subtraction

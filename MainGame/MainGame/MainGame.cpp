@@ -22,8 +22,11 @@ int main()
 	Window window{ 800, 600 };
 	while (!window.shouldClose())
 	{
-		window.present();
 		window.processInput();
+
+		window.clear();
+
+		window.present();
 	}
 	glfwTerminate();
 	return 0;
