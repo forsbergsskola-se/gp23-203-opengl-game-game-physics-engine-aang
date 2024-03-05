@@ -15,6 +15,13 @@ public:
 		z *= other.z;
 		return Vector3(x, y, z);
 	}
+	Vector3 operator*(float number) {
+		x *= number;
+		y *= number;
+		z *= number;
+		return Vector3{ x, y, z };
+	}
+
 	//Addition
 	Vector3 operator+(Vector3& const other)
 	{

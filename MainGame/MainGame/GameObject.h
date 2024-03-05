@@ -28,8 +28,9 @@ struct GameObject
 	}
 
 	//Update position
-	void UpdatePosition() {
-		
+	void UpdatePosition(float time) {
+		Vector3 accAfterTime = acceleration * time;
+		this->position = position + accAfterTime;
 	}
 
 
