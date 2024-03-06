@@ -4,11 +4,21 @@
 #include "GLFW/glfw3.h"
 #include "Vector3.h"
 #include "GameObject.h"
+#include "Shader.h"
 
 using namespace std;
 
+void processInput(GLFWwindow*);
+
 int main()
 {
+	//Setup
+	Window window{ 800, 600 };
+
+	Shader vertexShader{ "vertexShader.glsl", GL_VERTEX_SHADER};
+	Shader yellowShader{ "yellowFragmentShader.glsl", GL_FRAGMENT_SHADER };
+	 
+
 	//Setup Game Object (Player Circle)
 	GameObject Player{ Vector3{0,0,0}, Vector3{0,0,0}, Vector3{0,0,0}, 50};
 	GameObject Enemy{ Vector3{0.5,0.5,0.5}, Vector3{0.5,0.5,0.5}, Vector3{0.5,0.5,0.5}, 50};
@@ -21,7 +31,6 @@ int main()
 
 
 	//OpenGL window startup, end when pressed [ESC]
-	Window window{ 800, 600 };
 	while (!window.shouldClose())
 	{
 		window.processInput();

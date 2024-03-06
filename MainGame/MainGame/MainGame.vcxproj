@@ -170,6 +170,10 @@
     <ClInclude Include="Vector3.h" />
     <ClInclude Include="Window.h" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\gp23-OpenGLGame\OpenGLGame\vertexShader.glsl" />
+    <None Include="..\..\..\gp23-OpenGLGame\OpenGLGame\yellowFragmentShader.glsl" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

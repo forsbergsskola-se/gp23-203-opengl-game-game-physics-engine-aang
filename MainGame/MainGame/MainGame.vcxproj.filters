@@ -66,4 +66,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\gp23-OpenGLGame\OpenGLGame\yellowFragmentShader.glsl">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\..\..\gp23-OpenGLGame\OpenGLGame\vertexShader.glsl">
+      <Filter>Resource Files</Filter>
+    </None>
+  </ItemGroup>
 </Project>
