@@ -1,23 +1,34 @@
 #pragma once
 #include "Vector3.h"
 #include <iostream>
-#include "GLFW/glfw3.h"
+#include "Material.h"
+#include "Matrix4x4.h"
+#include "Mesh.h"
+#include "Texture.h"
+
 
 using namespace std;
 
-struct GameObject
+class GameObject
 {
-	//Circles
-	Vector3 position;
-	Vector3 velocity;
-	Vector3 acceleration;
-	int mass;
+	const Mesh* mesh;
+	Material* material;
+	Texture* texture;
+
+public:
+	Vector3 position{ 0,0,0 };
+	Vector3 rotation{ 0,0,0 };
+	Vector3 velocity{ 0,0,0 };
+	Vector3 acceleration{ 0,0,0 };
+	float color;
 	float radius;
+	int mass;
 
 	
 	//Construct
-	GameObject(Vector3 pos, Vector3 vel, Vector3 acc, float m) :
-		position(pos), velocity(vel), acceleration(acc), mass(m) {}
+	GameObject(Material* _material, const Mesh* _mesh, Texture* _texture = nullptr) : material(_material), mesh(_mesh), texture(_texture) {};
+
+
 
 	// Apply force to the Rigidbody(Gameobejct)
 	void applyForce(Vector3 force) {
@@ -28,35 +39,45 @@ struct GameObject
 	}
 
 	//Update position
-	void UpdatePosition(float time) {
+	void UpdateAfterCollision(float time) {
 		Vector3 accAfterTime = acceleration * time;
 		this->position = position + accAfterTime;
 	}
 
+	void render() {
 
-	void renderThisObject() {
-		glBegin(GL_TRIANGLE_FAN);
-		// Center of the circle
-		glVertex2f(0.0f, 0.0f);
+		material->use();
 
-		// Calculate vertices for the circle
-		for (int i = 0; i <= mass; i++) {
-			float theta = 2.0f * 3.1415926f * float(i) / float(mass);
-			float x = radius * cosf(theta);
-			float y = radius * sinf(theta);
-			// Draw the vertex
-			glVertex2f(x, y);
+		int tintLocation = glGetUniformLocation(
+			material->ShaderProgram, "tintColor");
+		glUniform4f(tintLocation, color, 0, 0, 1);
+
+		Matrix4x4 matTranslation = Matrix4x4::Translation(position);
+		Matrix4x4 matRotation = Matrix4x4::Rotation(rotation);
+
+		Matrix4x4 transform = matTranslation * matRotation;
+
+		int transformLocation = glGetUniformLocation(
+			material->ShaderProgram, "transform");
+		glUniformMatrix4fv(transformLocation, 1, GL_TRUE, &transform.m11);
+
+		int diffuseLocation = glGetUniformLocation(
+			material->ShaderProgram, "diffuseTexture");
+		glUniform1i(diffuseLocation, 0);
+
+		glActiveTexture(GL_TEXTURE0);
+
+		if (texture != nullptr) {
+			glBindTexture(GL_TEXTURE_2D, texture->textureID);
 		}
-		glEnd();
-	}
+		else {
+			glBindTexture(GL_TEXTURE_2D, 0);
+		}
 
-	GameObject AddGameObject(){
-		//Insert add object function
-	}
+		int blendLocation = glGetUniformLocation(
+			material->ShaderProgram, "blendTexture");
+		glUniform1i(blendLocation, 1);
 
-	void RemoveObject()
-	{
-		//Insert remove object function
-		//Design Pattern: object pooling?
+		mesh->render();
 	}
 };

@@ -1,11 +1,11 @@
 #include <iostream>
-#include "glad/glad.h"
-#include "Window.h"
+#define GLFW_INCLUDE_NONE
 #include "GLFW/glfw3.h"
+#include "Window.h"
 #include "Vector3.h"
 #include "GameObject.h"
 #include "Shader.h"
-
+#include "Material.h"
 using namespace std;
 
 void processInput(GLFWwindow*);
@@ -15,13 +15,16 @@ int main()
 	//Setup
 	Window window{ 800, 600 };
 
+	Texture basketball{ "basketball.jpg", GL_TEXTURE0 };
 	Shader vertexShader{ "vertexShader.glsl", GL_VERTEX_SHADER};
 	Shader yellowShader{ "yellowFragmentShader.glsl", GL_FRAGMENT_SHADER };
-	 
+	
+	//Pipeline
+	Material yellow{ vertexShader, yellowShader };
 
 	//Setup Game Object (Player Circle)
-	GameObject Player{ Vector3{0,0,0}, Vector3{0,0,0}, Vector3{0,0,0}, 50};
-	GameObject Enemy{ Vector3{0.5,0.5,0.5}, Vector3{0.5,0.5,0.5}, Vector3{0.5,0.5,0.5}, 50};
+	GameObject player{ &yellow, Mesh::createQuad() };
+	player.color = 1;
 	//Ground
 	
 
@@ -42,5 +45,3 @@ int main()
 	glfwTerminate();
 	return 0;
 }
-
-//https://www.toptal.com/game/video-game-physics-part-i-an-introduction-to-rigid-body-dynamics
