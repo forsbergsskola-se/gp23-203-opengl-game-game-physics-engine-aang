@@ -9,6 +9,10 @@
 
 using namespace std;
 
+// Gravitational constant
+const float G = 6.67430e-11; // m^3 kg^-1 s^-2
+
+
 class GameObject
 {
 	const Mesh* mesh;
@@ -38,10 +42,42 @@ public:
 		acceleration.z += force.z / mass;
 	}
 
-	//Update position
+	// Update position
 	void UpdateAfterCollision(float time) {
 		Vector3 accAfterTime = acceleration * time;
-		this->position = position + accAfterTime;
+		Vector3 velAfterTime = velocity * time;
+
+		this->position = position + velAfterTime + 0.5f * accAfterTime * time;
+		this->velocity = velocity + acceleration * time;
+	}
+
+	// Calculate gravitational force between two GameObjects
+	Vector3 calculateGravitationalForce(const GameObject& other) {
+		// Calculate distance between the two objects
+		Vector3 direction = other.position - this->position;
+		float distance = direction.magnitude();
+
+		// Avoid division by zero
+		if (distance == 0) {
+			return Vector3(0, 0, 0);
+		}
+
+		// Calculate gravitational force magnitude
+		float forceMagnitude = (G * this->mass * other.mass) / (distance * distance);
+
+		// Normalize direction vector
+		direction.normalize();
+
+		// Calculate gravitational force vector
+		Vector3 gravitationalForce = direction * forceMagnitude;
+
+		return gravitationalForce;
+	}
+
+	// Apply gravitational force from another GameObject
+	void applyGravitationalForce(const GameObject& other) {
+		Vector3 gravitationalForce = calculateGravitationalForce(other);
+		applyForce(gravitationalForce);
 	}
 
 	void render() {

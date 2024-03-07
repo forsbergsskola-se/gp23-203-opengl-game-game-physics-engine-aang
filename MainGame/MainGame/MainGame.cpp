@@ -30,7 +30,7 @@ int main()
 
 	//Setting up physics
 	//Gravitational force
-	Vector3 gravity{0, -9.81f, 0};
+	// gravity{0, -9.81f, 0};
 
 
 	//OpenGL window startup, end when pressed [ESC]

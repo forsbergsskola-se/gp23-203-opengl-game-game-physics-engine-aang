@@ -37,6 +37,19 @@ public:
 		z -= other.z;
 		return Vector3(x, y, z);
 	}
+	// Division
+	Vector3 operator/(const Vector3& other) {
+		x /= other.x;
+		y /= other.y;
+		z /= other.z;
+		return Vector3(x, y, z);
+	}
+	Vector3 operator/(float other) {
+		x /= other;
+		y /= other;
+		z /= other;
+		return Vector3(x, y, z);
+	}
 
 	//Return Dot product
 	static float Dot(Vector3& one, const Vector3& two) {
@@ -51,6 +64,10 @@ public:
 
 	static float Distance(Vector3& one, Vector3& two) {
 		return (one - two).magnitude();
+	}
+	//Normalize
+	Vector3 normalize() {
+		return *this / magnitude();
 	}
 
 };
