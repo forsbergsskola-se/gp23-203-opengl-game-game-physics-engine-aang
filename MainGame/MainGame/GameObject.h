@@ -87,7 +87,7 @@ public:
 		int tintLocation = glGetUniformLocation(
 			material->ShaderProgram, "tintColor");
 		glUniform4f(tintLocation, color, 0, 0, 1);
-
+  
 		Matrix4x4 matTranslation = Matrix4x4::Translation(position);
 		Matrix4x4 matRotation = Matrix4x4::Rotation(rotation);
 

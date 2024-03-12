@@ -15,13 +15,12 @@ public:
 		z *= other.z;
 		return Vector3(x, y, z);
 	}
-	Vector3 operator*(float number) {
-		x *= number;
-		y *= number;
-		z *= number;
+	Vector3 operator*(float other) {
+		x *= other;
+		y *= other;
+		z *= other;
 		return Vector3{ x, y, z };
 	}
-
 	//Addition
 	Vector3 operator+(Vector3& const other)
 	{
@@ -30,11 +29,23 @@ public:
 		z += other.z;
 		return Vector3(x, y, z);
 	}
+	Vector3 operator+(float other) {
+		x += other;
+		y += other;
+		z += other;
+		return Vector3(x, y, z);
+	}
 	// Subtraction
-	Vector3 operator-(Vector3& const other) {
+	Vector3 operator-(const Vector3& other) {
 		x -= other.x;
 		y -= other.y;
 		z -= other.z;
+		return Vector3(x, y, z);
+	}
+	Vector3 operator-(float other) {
+		x -= other;
+		y -= other;
+		z -= other;
 		return Vector3(x, y, z);
 	}
 	// Division
