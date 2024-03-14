@@ -16,10 +16,7 @@ public:
 		return Vector3(x, y, z);
 	}
 	Vector3 operator*(float other) {
-		x *= other;
-		y *= other;
-		z *= other;
-		return Vector3{ x, y, z };
+		return Vector3{ x *= other, y *= other, z *= other };
 	}
 	//Addition
 	Vector3 operator+(Vector3& const other)

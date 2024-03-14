@@ -47,14 +47,17 @@ public:
 		Vector3 accAfterTime = acceleration * time;
 		Vector3 velAfterTime = velocity * time;
 
-		this->position = position + velAfterTime + 0.5f * accAfterTime * time;
-		this->velocity = velocity + acceleration * time;
+		this->position = position + velAfterTime + (accAfterTime * 0.5f) * time; //0.5 because assuming the acceleration is constant
+		this->velocity = (velocity + acceleration) * time;
 	}
 
 	// Calculate gravitational force between two GameObjects
 	Vector3 calculateGravitationalForce(const GameObject& other) {
 		// Calculate distance between the two objects
-		Vector3 direction = other.position - this->position;
+		// Creating a temp copy, to avoid unwanted changes, only wish for info
+		GameObject tempObject = other;
+
+		Vector3 direction = tempObject.position - this->position;
 		float distance = direction.magnitude();
 
 		// Avoid division by zero
