@@ -47,7 +47,7 @@ public:
 		Vector3 accAfterTime = acceleration * time;
 		Vector3 velAfterTime = velocity * time;
 
-		this->position = position + velAfterTime + (accAfterTime * 0.5f) * time; //0.5 because assuming the acceleration is constant
+		this->position = position + velAfterTime + (accAfterTime * 0.5f) * time; //0.5: assuming the acceleration is constant
 		this->velocity = (velocity + acceleration) * time;
 	}
 

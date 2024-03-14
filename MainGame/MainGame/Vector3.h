@@ -19,7 +19,7 @@ public:
 		return Vector3{ x *= other, y *= other, z *= other };
 	}
 	//Addition
-	Vector3 operator+(Vector3& const other)
+	Vector3 operator+(const Vector3& other)
 	{
 		x += other.x;
 		y += other.y;
